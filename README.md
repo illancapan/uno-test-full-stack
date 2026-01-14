@@ -1,155 +1,155 @@
-# Full Stack Technical Challenge  
-## Memory / Concentration Game
+# UNO Challenge – Full Stack
 
-Bienvenido/a al desafío técnico Full Stack.
+Aplicación Full Stack desarrollada como parte del Challenge UNO.
 
-Este repositorio corresponde al **punto de partida oficial** del challenge.  
-Para comenzar, debes **hacer un fork de este repositorio** y trabajar únicamente sobre tu fork.
+El proyecto implementa un juego de memoria (Memory / Concentration), integrando frontend, backend y persistencia de datos en PostgreSQL.  
+Todo el entorno se levanta mediante Docker Compose.
 
-## Objetivo del Desafío
+---
 
-Construir una aplicación **Full Stack** que implemente el juego de cartas **Concentration / Memory**, con foco en:
-
-- Calidad y estructura de código
-- Separación Frontend / Backend
-- Persistencia de datos
-- Pruebas unitarias
-- Dockerización
-- Uso profesional de GitHub (ramas, PRs, CI)
-
-El Backend debe **persistir los resultados finales del juego**, permitiendo consultar un **historial de victorias por RUN**.
-
-## Cómo comenzar
-
-1. Haz **fork** de este repositorio en tu cuenta de GitHub.
-2. Clona **tu fork** localmente.
-3. A partir de ese punto, todo el desarrollo debe realizarse en tu repositorio.
-
-> ⚠️ No se aceptarán PRs ni commits directos sobre este repositorio original.
-
-## Alcance Funcional (Resumen)
-
-### Identificación de Usuario
-- Solicitar nombre y RUN en el primer ingreso.
-- Persistir identidad para evitar duplicidad de RUN.
-- El usuario no debe volver a ingresar sus datos al refrescar.
-
-### Juego
-- Juego de memoria clásico.
-- Máximo 2 cartas volteadas por turno.
-- Contadores de errores y aciertos.
-- Mensaje de finalización con el nombre del usuario.
-
-### Persistencia de Resultados
-- Guardar el resultado final al completar el juego.
-- Consultar victorias pasadas por RUN.
-
-## Arquitectura Esperada
-
-### Frontend
-- React o Next.js
-- TypeScript preferido
-- Tailwind CSS o Ant Design
+## Stack Tecnológico
 
 ### Backend
-- NestJS (recomendado) o Express con TypeScript
-- Construye el deck (duplica y mezcla imágenes)
-- Persiste usuarios y resultados
-- Expone APIs para historial por RUN
 
-## API Externa de Imágenes
-
-Las imágenes deben obtenerse desde:
-
-```
-GET https://challenge-uno.vercel.app/api/images
-```
-
-El backend es responsable de:
-- Seleccionar imágenes
-- Duplicarlas
-- Mezclarlas (shuffle)
-
-## Testing (Obligatorio)
+-   Node.js
+-   NestJS
+-   TypeScript
+-   Arquitectura por capas (inspirada en Hexagonal)
+-   API REST
+-   PostgreSQL
 
 ### Frontend
-- Jest + React Testing Library o Vitest
-- Lógica del juego
-- Actualización de métricas
-- Finalización
-- Render de historial
+
+-   React
+-   TypeScript
+-   Vite
+-   Tailwind CSS
+
+### Infraestructura
+
+-   Docker
+-   Docker Compose
+-   PostgreSQL 16
+
+---
+
+## Requisitos
+
+-   Docker
+-   Docker Compose
+
+---
+
+## Levantar el Proyecto
+
+Desde la raíz del proyecto ejecutar:
+
+```bash
+docker-compose up --build
+```
+
+Este comando levanta:
+
+-   Base de datos PostgreSQL
+-   Backend NestJS
+-   Frontend React
+
+---
+
+## URLs del Proyecto
+
+| Servicio   | URL                   |
+| ---------- | --------------------- |
+| Frontend   | http://localhost:5173 |
+| Backend    | http://localhost:3000 |
+| PostgreSQL | localhost:5433        |
+
+---
+
+## Variables de Entorno
 
 ### Backend
-- Jest
-- Construcción del deck
-- Validaciones
-- Persistencia y consultas
 
-## Dockerización (Obligatorio)
+```env
+NODE_ENV=development
+DATABASE_HOST=db
+DATABASE_PORT=5432
+DATABASE_USER=memory_user
+DATABASE_PASSWORD=memory_pass
+DATABASE_NAME=memory_game
+```
 
-El proyecto debe levantarse con `docker compose`
+### Frontend
 
-Requisitos:
-- Dockerfile para Frontend
-- Dockerfile para Backend
-- docker-compose.yml en la raíz
-- Base de datos incluida si aplica
+```env
+VITE_API_URL=http://localhost:3000
+```
 
-## Flujo de GitHub (Obligatorio)
+---
 
-### Ramas
-- `main` (sin commits directos)
-- Ramas de feature, por ejemplo:
-  - feature/frontend-game
-  - feature/backend-results
-  - feature/docker-setup
+## Endpoints Principales
 
-### Pull Requests
-- Mínimo **3 Pull Requests**
-- Cada PR debe incluir:
-  - Descripción clara del cambio
-  - Motivación técnica
-  - Checklist de calidad
+### Obtener deck de cartas
 
-### Commits
-- Mensajes en inglés
-- Commits pequeños y coherentes
-- Se recomienda Conventional Commits
+```http
+GET /game/deck
+```
 
-### CI
-- GitHub Actions ejecutando:
-  - Lint
-  - Tests
-- Debe correr en cada PR
+Respuesta de ejemplo:
 
-## Documentación Esperada
+```json
+[
+    {
+        "id": "0-a",
+        "image": {
+            "url": "https://challenge-uno.vercel.app/images/bear.jpg",
+            "uuid": "d7c1b5a4-8bfa-45a4-ba9a-de92a3e81300",
+            "title": "bear",
+            "content_type": "image/jpeg"
+        },
+        "flipped": false
+    }
+]
+```
 
-El README.md de tu fork debe incluir:
-- Descripción del proyecto
-- Decisiones de arquitectura
-- Instrucciones para ejecutar localmente
-- Instrucciones para ejecutar con Docker
-- Instrucciones para ejecutar tests
-- Flujo de trabajo en GitHub
-- Propuesta de diseño de interfaz
+---
 
-## Entregable
+## Estructura del Proyecto
 
-- Repositorio público (tu fork)
-- Código funcional
-- Pruebas ejecutables
-- Docker operativo
-- README completo
+```text
+uno-test-full-stack/
+│
+├── backend/
+├── frontend/
+├── docker-compose.yml
+└── README.md
+```
 
-No se aceptan:
-- Archivos comprimidos
-- Capturas de pantalla como reemplazo del código
-- Commits directos en este repositorio base
+---
 
-## Consideraciones Finales
+## Ejecución sin Docker (Opcional)
 
-- Todo el código debe estar en **inglés**
-- Se valora claridad, simplicidad y criterio técnico
-- No se espera perfección visual, sí solidez técnica
+### Backend
 
-Éxito en el desafío.
+```bash
+cd backend
+npm install
+npm run start:dev
+```
+
+### Frontend
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+---
+
+## Notas Finales
+
+-   El proyecto está orientado a entorno de desarrollo.
+-   El backend utiliza una arquitectura desacoplada inspirada en Hexagonal.
+-   El foco del challenge es la integración Full Stack y buenas prácticas.
+-   Existen oportunidades de mejora en organización del frontend y cobertura de tests.

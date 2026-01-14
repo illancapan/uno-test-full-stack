@@ -62,20 +62,21 @@ Respuesta
 ]
 ```
 
-Próximos endpoints (planeados)
-POST /game/flip → cambiar estado de carta (flipped)
+Docker
 
-POST /game/match → validar pareja de cartas
+Desde la raíz del proyecto:
+```bash
+docker-compose up --build
+```
 
-Notas de arquitectura
-application → casos de uso (BuildDeckService, etc.)
+El backend quedará disponible en:
+```bash
+http://localhost:3000
+```
 
-infrastructure → integración con APIs externas (ImageApiService)
-
-dto → contratos de datos (CardDto, ImageDto)
-
-game.module.ts → conecta controladores y servicios
-
-Hexagonal: desacople backend vs servicios externos
-
-sql
+Ejecución sin Docker
+```bash
+cd backend
+npm install
+npm run start:dev
+```
