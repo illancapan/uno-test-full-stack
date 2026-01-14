@@ -4,4 +4,5 @@ export class CardDto {
   id: string;
   image: ImageDto;
   flipped: boolean;
+  isMatched?: boolean;
 }
